@@ -1,0 +1,489 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SCHOOL HUB | بوابة الطلاب</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+  --bg:#050914;
+  --panel:#0b1425;
+  --panel2:#101d33;
+  --blue:#1677ff;
+  --light:#42a5ff;
+  --text:#f3f7ff;
+  --muted:#8293ad;
+  --border:rgba(55,133,255,.19);
+}
+*{box-sizing:border-box}
+body{
+ margin:0;background:var(--bg);color:var(--text);
+ font-family:'Cairo',sans-serif;
+ min-height:100vh;
+ background-image:
+ radial-gradient(ellipse at 80% 0%,rgba(0,95,255,.15),transparent 40%),
+ radial-gradient(ellipse at 0% 70%,rgba(0,55,150,.10),transparent 40%);
+}
+button,input{font-family:inherit}
+button{cursor:pointer}
+header{
+ height:75px;display:flex;align-items:center;
+ justify-content:space-between;padding:0 6%;
+ border-bottom:1px solid var(--border);
+ background:rgba(5,9,20,.85);backdrop-filter:blur(15px);
+ position:sticky;top:0;z-index:10;
+}
+.logo{font-size:22px;font-weight:900;letter-spacing:1px}
+.logo span{color:var(--light);text-shadow:0 0 18px #1677ff}
+.logo small{display:block;font-size:9px;color:var(--muted);letter-spacing:3px}
+.user{font-size:12px;color:var(--muted)}
+.layout{display:flex;max-width:1450px;margin:auto;min-height:calc(100vh - 75px)}
+aside{
+ width:235px;padding:25px 15px;
+ border-left:1px solid var(--border);
+ flex-shrink:0;
+}
+.nav-title{font-size:10px;color:var(--muted);padding:12px}
+.nav{
+ width:100%;border:0;background:transparent;color:#9caec8;
+ padding:13px 15px;border-radius:12px;text-align:right;
+ font-size:13px;margin:3px 0;transition:.25s;
+}
+.nav:hover,.nav.active{
+ color:white;background:linear-gradient(90deg,rgba(22,119,255,.05),rgba(22,119,255,.22));
+ box-shadow:inset -3px 0 var(--blue),0 0 15px rgba(22,119,255,.06);
+}
+main{flex:1;padding:35px 4%;min-width:0}
+.welcome{
+ background:linear-gradient(120deg,#0d1b34,#0c2347 65%,#102e5d);
+ border:1px solid rgba(55,133,255,.3);
+ border-radius:22px;padding:30px;
+ position:relative;overflow:hidden;
+ box-shadow:0 0 40px rgba(0,80,255,.09);
+}
+.welcome:after{
+ content:"✦";position:absolute;left:8%;top:5px;
+ font-size:130px;color:rgba(85,165,255,.08);
+}
+.welcome h1{font-size:27px;margin:0 0 5px}
+.welcome p{color:#a7bad6;font-size:13px;margin:0}
+.tag{
+ display:inline-block;background:rgba(35,135,255,.15);
+ color:#65b5ff;padding:6px 13px;border-radius:30px;
+ font-size:11px;margin-bottom:15px;border:1px solid var(--border)
+}
+.section-title{font-size:18px;margin:30px 0 15px}
+.grid{
+ display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px;
+}
+.card{
+ background:linear-gradient(145deg,var(--panel2),var(--panel));
+ border:1px solid var(--border);border-radius:17px;
+ padding:20px;transition:.25s;
+}
+.card:hover{
+ transform:translateY(-4px);
+ border-color:rgba(55,150,255,.55);
+ box-shadow:0 8px 30px rgba(0,90,255,.12);
+}
+.stat-icon{font-size:23px;margin-bottom:12px}
+.stat-number{font-size:25px;font-weight:900}
+.stat-label{font-size:11px;color:var(--muted)}
+.two{display:grid;grid-template-columns:1.4fr 1fr;gap:15px}
+.panel{
+ background:var(--panel);border:1px solid var(--border);
+ border-radius:17px;padding:20px;margin-bottom:15px;
+}
+.panel h3{font-size:14px;margin:0 0 18px}
+.item{
+ display:flex;align-items:center;justify-content:space-between;
+ padding:12px 0;border-bottom:1px solid rgba(255,255,255,.05);
+ font-size:12px;gap:10px;
+}
+.item:last-child{border:0}
+.muted{color:var(--muted)}
+.blue{color:var(--light)}
+.action{
+ border:1px solid var(--border);background:#10274a;color:#b9d9ff;
+ border-radius:9px;padding:8px 13px;font-size:11px;
+}
+.action:hover{background:var(--blue);color:white}
+.primary{
+ background:linear-gradient(120deg,#1266e9,#279cff);
+ border:0;color:white;border-radius:10px;padding:11px 18px;
+ font-weight:700;font-size:12px;
+ box-shadow:0 0 18px rgba(22,119,255,.23);
+}
+.primary:hover{filter:brightness(1.15)}
+.page{display:none;animation:fade .3s}
+.page.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+input{
+ background:#07101f;border:1px solid var(--border);
+ color:white;padding:12px;border-radius:10px;width:100%;
+ outline:none;margin:8px 0;font-size:13px;
+}
+input:focus{border-color:var(--blue)}
+.row{display:flex;gap:10px;align-items:center}
+.row input{flex:1}
+.quiz-option{
+ display:block;width:100%;text-align:right;margin:9px 0;
+ background:#0b1930;color:white;border:1px solid var(--border);
+ padding:13px;border-radius:10px;font-size:13px;
+}
+.quiz-option:hover{border-color:var(--light);background:#112a4d}
+.badge{font-size:10px;color:#60b3ff;background:#102b4d;padding:5px 9px;border-radius:20px}
+footer{text-align:center;color:#586b88;font-size:10px;padding:30px}
+.mobile-menu{display:none}
+.empty{text-align:center;color:var(--muted);padding:25px;font-size:12px}
+@media(max-width:850px){
+ .grid{grid-template-columns:repeat(2,1fr)}
+ .two{grid-template-columns:1fr}
+ aside{width:65px;padding:15px 5px}
+ .nav{font-size:0;text-align:center;padding:13px 3px}
+ .nav span{font-size:18px}
+ .nav-title{display:none}
+ main{padding:22px 14px}
+}
+@media(max-width:480px){
+ header{padding:0 15px}
+ .user{font-size:10px}
+ .welcome{padding:22px}
+ .welcome h1{font-size:21px}
+ .grid{gap:9px}
+ .card{padding:14px}
+ .stat-number{font-size:21px}
+}
+</style>
+</head>
+<body>
+
+<header>
+ <div class="logo">SCHOOL <span>HUB</span><small>SMART STUDENT PORTAL</small></div>
+ <div class="user">👤 <span id="headerName">طالب</span></div>
+</header>
+
+<div class="layout">
+<aside>
+ <div class="nav-title">القائمة الرئيسية</div>
+ <button class="nav active" onclick="showPage('home',this)"><span>⌂</span> الرئيسية</button>
+ <button class="nav" onclick="showPage('library',this)"><span>📚</span> المكتبة</button>
+ <button class="nav" onclick="showPage('quiz',this)"><span>📝</span> الاختبارات</button>
+ <button class="nav" onclick="showPage('schedule',this)"><span>📅</span> جدول الحصص</button>
+ <button class="nav" onclick="showPage('leaders',this)"><span>🏆</span> لوحة الشرف</button>
+ <button class="nav" onclick="showPage('announcements',this)"><span>📢</span> الإعلانات</button>
+ <button class="nav" onclick="showPage('suggestions',this)"><span>💡</span> الاقتراحات</button>
+ <div class="nav-title">الحساب</div>
+ <button class="nav" onclick="showPage('settings',this)"><span>⚙️</span> الإعدادات</button>
+</aside>
+
+<main>
+
+<!-- HOME -->
+<section class="page active" id="home">
+ <div class="welcome">
+  <span class="tag">✦ بوابتك التعليمية الذكية</span>
+  <h1>أهلاً بك في SCHOOL HUB 👋</h1>
+  <p>كل ما تحتاجه في رحلتك الدراسية في مكان واحد</p>
+  <div style="margin-top:20px">
+   <button class="primary" onclick="showPage('quiz')">ابدأ اختباراً الآن ←</button>
+  </div>
+ </div>
+
+ <h2 class="section-title">نظرة عامة</h2>
+ <div class="grid">
+  <div class="card"><div class="stat-icon">⭐</div><div class="stat-number" id="points">0</div><div class="stat-label">نقاطك</div></div>
+  <div class="card"><div class="stat-icon">📝</div><div class="stat-number" id="tests">0</div><div class="stat-label">اختبارات مكتملة</div></div>
+  <div class="card"><div class="stat-icon">🏆</div><div class="stat-number" id="rank">-</div><div class="stat-label">ترتيبك</div></div>
+  <div class="card"><div class="stat-icon">📚</div><div class="stat-number">3</div><div class="stat-label">مواد تجريبية</div></div>
+ </div>
+
+ <h2 class="section-title">مساحتك الدراسية</h2>
+ <div class="two">
+  <div class="panel">
+   <h3>🚀 الوصول السريع</h3>
+   <div class="item"><span>📚 المكتبة الدراسية</span><button class="action" onclick="showPage('library')">فتح</button></div>
+   <div class="item"><span>📝 الاختبارات الإلكترونية</span><button class="action" onclick="showPage('quiz')">فتح</button></div>
+   <div class="item"><span>📅 جدول الحصص</span><button class="action" onclick="showPage('schedule')">فتح</button></div>
+   <div class="item"><span>🏆 لوحة المتصدرين</span><button class="action" onclick="showPage('leaders')">فتح</button></div>
+  </div>
+  <div class="panel">
+   <h3>💡 نصيحة اليوم</h3>
+   <p style="font-size:13px;line-height:2;color:#a9bdd8">لا تؤجل عمل اليوم إلى الغد، خصص وقتاً يومياً للمراجعة وستلاحظ الفرق! ✨</p>
+   <div class="badge">استمر في التقدم</div>
+  </div>
+ </div>
+</section>
+
+<!-- LIBRARY -->
+<section class="page" id="library">
+ <h2 class="section-title">📚 المكتبة الدراسية</h2>
+ <p class="muted" style="font-size:12px">مكان واحد للملخصات والمواد التعليمية</p>
+ <div class="grid" id="libraryGrid"></div>
+ <div class="panel" style="margin-top:20px">
+  <h3>إضافة مورد دراسي</h3>
+  <input id="resourceName" placeholder="اسم الملخص أو الدرس">
+  <input id="resourceUrl" placeholder="رابط الملف أو PDF">
+  <button class="primary" onclick="addResource()">إضافة للمكتبة</button>
+ </div>
+</section>
+
+<!-- QUIZ -->
+<section class="page" id="quiz">
+ <h2 class="section-title">📝 الاختبارات الإلكترونية</h2>
+ <div class="panel">
+  <div id="quizContent">
+   <span class="badge">اختبار تجريبي</span>
+   <h3 style="margin-top:15px">اختبر معلوماتك العامة</h3>
+   <p class="muted" style="font-size:12px">5 أسئلة — اجمع النقاط وأثبت تفوقك</p>
+   <button class="primary" onclick="startQuiz()">ابدأ الاختبار ←</button>
+  </div>
+ </div>
+</section>
+
+<!-- SCHEDULE -->
+<section class="page" id="schedule">
+ <h2 class="section-title">📅 جدول الحصص</h2>
+ <div class="panel">
+  <h3>جدولي الدراسي</h3>
+  <div id="scheduleList"></div>
+  <p class="muted" style="font-size:10px;margin-top:15px">جدول تجريبي قابل للتعديل من الكود</p>
+ </div>
+</section>
+
+<!-- LEADERS -->
+<section class="page" id="leaders">
+ <h2 class="section-title">🏆 لوحة الشرف</h2>
+ <div class="panel">
+  <h3>أفضل الطلاب</h3>
+  <div id="leaderList"></div>
+  <p class="muted" style="font-size:10px">الترتيب المعروض تجريبي وليس ترتيباً حقيقياً للمدرسة</p>
+ </div>
+</section>
+
+<!-- ANNOUNCEMENTS -->
+<section class="page" id="announcements">
+ <h2 class="section-title">📢 إعلانات المنصة</h2>
+ <div id="announcementList" class="panel"></div>
+</section>
+
+<!-- SUGGESTIONS -->
+<section class="page" id="suggestions">
+ <h2 class="section-title">💡 صندوق الاقتراحات</h2>
+ <div class="panel">
+  <h3>شاركنا فكرتك لتطوير المنصة</h3>
+  <textarea id="suggestionText" placeholder="اكتب اقتراحك هنا..." style="width:100%;height:120px;background:#07101f;border:1px solid var(--border);border-radius:10px;color:white;padding:12px;font-family:inherit"></textarea>
+  <button class="primary" onclick="sendSuggestion()">إرسال الاقتراح</button>
+  <p id="suggestionStatus" class="muted" style="font-size:11px"></p>
+ </div>
+</section>
+
+<!-- SETTINGS -->
+<section class="page" id="settings">
+ <h2 class="section-title">⚙️ الإعدادات</h2>
+ <div class="panel">
+  <h3>بيانات الطالب</h3>
+  <label class="muted" style="font-size:11px">اسم العرض</label>
+  <input id="nameInput" placeholder="اكتب اسمك">
+  <button class="primary" onclick="saveName()">حفظ الاسم</button>
+ </div>
+ <div class="panel">
+  <h3>عن المنصة</h3>
+  <p class="muted" style="font-size:12px;line-height:2">
+   SCHOOL HUB<br>
+   منصة تعليمية لتنظيم تجربة الطالب وتسهيل الوصول إلى الأدوات الدراسية.
+  </p>
+  <div class="badge">Developed by Omar Basoudan</div>
+ </div>
+</section>
+
+<footer>© 2026 SCHOOL HUB — Developed by Omar Basoudan</footer>
+</main>
+</div>
+
+<script>
+const get = key => localStorage.getItem('sh_'+key);
+const set = (key,val) => localStorage.setItem('sh_'+key,val);
+
+let studentName = get('name') || 'طالب';
+let points = Number(get('points') || 0);
+let tests = Number(get('tests') || 0);
+
+function refresh(){
+ document.getElementById('headerName').textContent=studentName;
+ document.getElementById('points').textContent=points;
+ document.getElementById('tests').textContent=tests;
+ document.getElementById('rank').textContent=points>=50?'متقدم':'مبتدئ';
+ document.getElementById('nameInput').value=studentName;
+}
+
+function showPage(id,btn){
+ document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+ document.querySelectorAll('.nav').forEach(n=>n.classList.remove('active'));
+ if(btn) btn.classList.add('active');
+ if(id==='leaders') renderLeaders();
+}
+
+function saveName(){
+ const value=document.getElementById('nameInput').value.trim();
+ if(!value)return alert('اكتب اسمك أولاً');
+ studentName=value;
+ set('name',value);
+ refresh();
+ alert('تم حفظ الاسم');
+}
+
+const subjects=[
+ {name:'الرياضيات',icon:'📐',desc:'دروس ومسائل رياضية'},
+ {name:'العلوم',icon:'🔬',desc:'معلومات وتجارب علمية'},
+ {name:'اللغة العربية',icon:'📖',desc:'قواعد ونصوص وقراءة'}
+];
+
+function renderLibrary(){
+ const grid=document.getElementById('libraryGrid');
+ const custom=JSON.parse(get('resources')||'[]');
+ grid.innerHTML=subjects.map(s=>`
+ <div class="card">
+ <div class="stat-icon">${s.icon}</div>
+ <h3 style="font-size:14px">${s.name}</h3>
+ <p class="muted" style="font-size:11px">${s.desc}</p>
+ <span class="badge">قسم تعليمي</span>
+ </div>`).join('')+
+ custom.map(r=>`
+ <div class="card">
+ <div class="stat-icon">📄</div>
+ <h3 style="font-size:13px">${escapeHTML(r.name)}</h3>
+ <a href="${safeURL(r.url)}" target="_blank" rel="noopener" class="blue" style="font-size:11px">فتح المورد ←</a>
+ </div>`).join('');
+}
+
+function safeURL(url){
+ try{
+  const u=new URL(url);
+  return ['https:','http:'].includes(u.protocol)?u.href:'#';
+ }catch{return '#'}
+}
+function escapeHTML(s){
+ return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function addResource(){
+ const name=document.getElementById('resourceName').value.trim();
+ const url=document.getElementById('resourceUrl').value.trim();
+ if(!name||!url||safeURL(url)==='#')return alert('تأكد من الاسم والرابط الصحيح');
+ const arr=JSON.parse(get('resources')||'[]');
+ arr.push({name,url});
+ set('resources',JSON.stringify(arr));
+ renderLibrary();
+ document.getElementById('resourceName').value='';
+ document.getElementById('resourceUrl').value='';
+ alert('تمت الإضافة');
+}
+
+const questions=[
+ {q:'كم عدد أيام الأسبوع؟',a:['5 أيام','7 أيام','10 أيام'],correct:1},
+ {q:'ما الكوكب المعروف بالكوكب الأحمر؟',a:['المريخ','الزهرة','عطارد'],correct:0},
+ {q:'ما ناتج 8 × 7؟',a:['54','56','64'],correct:1},
+ {q:'ما عاصمة المملكة العربية السعودية؟',a:['جدة','الرياض','مكة'],correct:1},
+ {q:'كم عدد أضلاع المثلث؟',a:['3','4','5'],correct:0}
+];
+let current=0,score=0;
+
+function startQuiz(){
+ current=0;score=0;
+ showQuestion();
+}
+function showQuestion(){
+ const box=document.getElementById('quizContent');
+ if(current>=questions.length){
+  const earned=score*4;
+  points+=earned;tests++;
+  set('points',points);set('tests',tests);
+  refresh();
+  box.innerHTML=`
+  <div style="text-align:center;padding:20px">
+  <div style="font-size:50px">🏆</div>
+  <h2>انتهى الاختبار!</h2>
+  <h1 class="blue">${score} / 5</h1>
+  <p class="muted">حصلت على ${earned} نقطة</p>
+  <button class="primary" onclick="startQuiz()">إعادة الاختبار</button>
+  </div>`;
+  return;
+ }
+ const q=questions[current];
+ box.innerHTML=`
+ <span class="badge">السؤال ${current+1} من ${questions.length}</span>
+ <div style="height:5px;background:#17253b;border-radius:10px;margin:15px 0">
+ <div style="height:5px;background:#268dff;border-radius:10px;width:${current/questions.length*100}%"></div>
+ </div>
+ <h3 style="font-size:17px">${q.q}</h3>
+ ${q.a.map((a,i)=>`<button class="quiz-option" onclick="answer(${i})">${a}</button>`).join('')}
+ `;
+}
+function answer(i){
+ if(i===questions[current].correct)score++;
+ current++;showQuestion();
+}
+
+const days=[
+ ['الأحد','رياضيات','علوم','لغة عربية','إنجليزي'],
+ ['الاثنين','علوم','رياضيات','إنجليزي','لغة عربية'],
+ ['الثلاثاء','لغة عربية','علوم','رياضيات','إنجليزي'],
+ ['الأربعاء','إنجليزي','لغة عربية','علوم','رياضيات'],
+ ['الخميس','رياضيات','إنجليزي','علوم','لغة عربية']
+];
+function renderSchedule(){
+ document.getElementById('scheduleList').innerHTML=days.map(d=>`
+ <div class="item">
+ <b class="blue">${d[0]}</b>
+ <span class="muted">${d.slice(1).join(' · ')}</span>
+ </div>`).join('');
+}
+
+function renderLeaders(){
+ const demo=[
+ {name:'طالب متفوق',points:150},
+ {name:'طالب متميز',points:120},
+ {name:'طالب مجتهد',points:90},
+ {name:studentName,points:points}
+ ].sort((a,b)=>b.points-a.points);
+ document.getElementById('leaderList').innerHTML=demo.map((s,i)=>`
+ <div class="item">
+ <span>${['🥇','🥈','🥉','⭐'][i]||'⭐'} ${escapeHTML(s.name)}</span>
+ <span class="badge">${s.points} نقطة</span>
+ </div>`).join('');
+}
+
+function renderAnnouncements(){
+ const saved=JSON.parse(get('announcements')||'[]');
+ const defaults=[
+ 'مرحباً بك في منصة SCHOOL HUB',
+ 'يمكنك تجربة الاختبارات وجمع النقاط',
+ 'تابع المنصة للاطلاع على التحديثات'
+ ];
+ document.getElementById('announcementList').innerHTML=
+ [...saved,...defaults].map(a=>`
+ <div class="item"><span>📢 ${escapeHTML(a)}</span></div>`).join('');
+}
+
+function sendSuggestion(){
+ const v=document.getElementById('suggestionText').value.trim();
+ if(!v)return alert('اكتب اقتراحك أولاً');
+ const arr=JSON.parse(get('suggestions')||'[]');
+ arr.push(v);set('suggestions',JSON.stringify(arr));
+ document.getElementById('suggestionText').value='';
+ document.getElementById('suggestionStatus').textContent='تم حفظ اقتراحك على هذا الجهاز بنجاح ✓';
+}
+
+refresh();
+renderLibrary();
+renderSchedule();
+renderLeaders();
+renderAnnouncements();
+</script>
+</body>
+</html>
